@@ -8,8 +8,10 @@ function App() {
     <div>
       <Header />
       <SemiHeader />
-      <Menu />
-      <Container />
+      <div className="flex">
+        <Menu />
+        <Container />
+      </div>
     </div>
   );
 }
