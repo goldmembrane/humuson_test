@@ -2,6 +2,11 @@ import { useEffect, useState } from "react";
 
 import { sliceArrayByLimit } from "./util";
 
+import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
+
 const Pagination = ({ totalPage, limit, page, setPage }) => {
   const [currentPage, setCurrentPage] = useState([]);
   const [totalPageArray, setTotalPageArray] = useState([]);
@@ -23,35 +28,37 @@ const Pagination = ({ totalPage, limit, page, setPage }) => {
   return (
     <div className="flex justify-center items-center mt-5">
       <div
-        className="w-8 h-8 text-[#b7b7b7] cursor-pointer"
+        className="w-6 h-6 text-[#b7b7b7] cursor-pointer"
         onClick={() => setPage(1)}
       >
         <KeyboardDoubleArrowLeftIcon />
       </div>
       <div
-        className="w-8 h-8 text-[#b7b7b7] cursor-pointer"
+        className="w-6 h-6 text-[#b7b7b7] cursor-pointer"
         onClick={() => setPage(page - 1)}
       >
         <KeyboardArrowLeftIcon />
       </div>
-      {currentPage.map((i) => (
-        <div
-          className="ml-3 text-lg font-bold"
-          key={i + 1}
-          onClick={() => setPage(i + 1)}
-        >
-          {i + 1}
-        </div>
-      ))}
+      <div className="flex justify-center items-center mx-3">
+        {currentPage.map((i) => (
+          <div
+            className="text-lg font-bold cursor-pointer mx-2"
+            key={i + 1}
+            onClick={() => setPage(i + 1)}
+          >
+            {i + 1}
+          </div>
+        ))}
+      </div>
       <div
-        className="w-8 h-8 text-[#b7b7b7] cursor-pointer"
+        className="w-6 h-6 text-[#b7b7b7] cursor-pointer"
         onClick={() => setPage(page + 1)}
         aria-disabled={page === totalPage}
       >
         <KeyboardArrowRightIcon />
       </div>
       <div
-        className="w-8 h-8 text-[#b7b7b7] cursor-pointer"
+        className="w-6 h-6 text-[#b7b7b7] cursor-pointer"
         onClick={() => setPage(totalPage)}
         aria-disabled={page === totalPage}
       >

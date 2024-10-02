@@ -2,15 +2,26 @@ import { useState } from "react";
 
 import SearchIcon from "@mui/icons-material/Search";
 import AddIcon from "@mui/icons-material/Add";
-import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
-import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 
 import jsonData from "../api/jsonData.json";
+import Pagination from "../util/pagination";
 
 const Container = () => {
   const [data, setData] = useState(jsonData);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(5);
+
+  const indexOfLast = currentPage * postsPerPage;
+  const indexOfFirst = indexOfLast - postsPerPage;
+  const currentPosts = (posts) => {
+    let currentPosts = 0;
+    currentPosts = posts.slice(indexOfFirst, indexOfLast);
+    return currentPosts;
+  };
+
+  const totalPage = Math.ceil(data.length / postsPerPage);
+
   return (
     <>
       <div className="bg-[#e3e3e3] w-10/12 h-auto p-5">
@@ -72,7 +83,7 @@ const Container = () => {
               <th>작성일</th>
               <th>조회수</th>
             </tr>
-            {data.map((article) => (
+            {currentPosts(data).map((article) => (
               <tr
                 className="text-center bg-[#f5f5f5] border-b-2 border-[#d4d4d4]"
                 key={article.id}
@@ -86,44 +97,12 @@ const Container = () => {
             ))}
           </table>
 
-          <div className="flex justify-center items-center mt-5">
-            <KeyboardDoubleArrowLeftIcon
-              style={{
-                cursor: "pointer",
-                width: "32px",
-                height: "32px",
-                color: "#b7b7b7",
-              }}
-            />
-            <KeyboardArrowLeftIcon
-              style={{
-                cursor: "pointer",
-                width: "32px",
-                height: "32px",
-                marginLeft: "12px",
-                color: "#b7b7b7",
-              }}
-            />
-            <div className="ml-3 text-lg font-bold">1</div>
-            <KeyboardArrowRightIcon
-              style={{
-                cursor: "pointer",
-                width: "32px",
-                height: "32px",
-                marginLeft: "12px",
-                color: "#b7b7b7",
-              }}
-            />
-            <KeyboardDoubleArrowRightIcon
-              style={{
-                cursor: "pointer",
-                width: "32px",
-                height: "32px",
-                marginLeft: "12px",
-                color: "#b7b7b7",
-              }}
-            />
-          </div>
+          <Pagination
+            totalPage={totalPage}
+            limit={postsPerPage}
+            page={currentPage}
+            setPage={setCurrentPage}
+          ></Pagination>
         </div>
       </div>
     </>
