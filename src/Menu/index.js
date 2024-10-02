@@ -21,7 +21,7 @@ const Menu = () => {
     },
     {
       title: "메시지",
-      subtitle: [{ title: "발송하기", subId: 1 }],
+      subtitle: [{ title: "발송하기", subId: 3 }],
       id: 2,
       icon: "message",
     },
