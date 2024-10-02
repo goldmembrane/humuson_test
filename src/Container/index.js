@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import SearchIcon from "@mui/icons-material/Search";
 import AddIcon from "@mui/icons-material/Add";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
@@ -5,7 +7,10 @@ import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 
+import jsonData from "../api/jsonData.json";
+
 const Container = () => {
+  const [data, setData] = useState(jsonData);
   return (
     <>
       <div className="bg-[#e3e3e3] w-10/12 h-auto p-5">
@@ -45,8 +50,8 @@ const Container = () => {
             <div className="flex items-center">
               <div className="text-lg">전체 글</div>
 
-              <div className="ml-[10px] rounded-full bg-[#a2a2a2] flex justify-center items-center text-white text-lg font-bold px-2">
-                1
+              <div className="ml-[10px] rounded-full bg-[#a2a2a2] flex justify-center items-center text-white text-lg font-bold px-2 py-1">
+                {data.length}
               </div>
             </div>
 
@@ -67,27 +72,18 @@ const Container = () => {
               <th>작성일</th>
               <th>조회수</th>
             </tr>
-            <tr className="text-center bg-[#f5f5f5] border-b-2 border-[#d4d4d4]">
-              <td>1</td>
-              <td className="text-left">test</td>
-              <td>ruo</td>
-              <td>2024-07-04 14:04:22</td>
-              <td>5</td>
-            </tr>
-            <tr className="text-center bg-[#f5f5f5] border-b-2 border-[#d4d4d4]">
-              <td>2</td>
-              <td className="text-left">onenanlsadanl</td>
-              <td>void</td>
-              <td>2024-08-12 10:00:56</td>
-              <td>18</td>
-            </tr>
-            <tr className="text-center bg-[#f5f5f5] border-b-2 border-[#d4d4d4]">
-              <td>3</td>
-              <td className="text-left">이것이 테스트임</td>
-              <td>de-tests-tda</td>
-              <td>2024-07-04 19:52:24</td>
-              <td>27</td>
-            </tr>
+            {data.map((article) => (
+              <tr
+                className="text-center bg-[#f5f5f5] border-b-2 border-[#d4d4d4]"
+                key={article.id}
+              >
+                <td>{article.id}</td>
+                <td className="text-left">{article.title}</td>
+                <td>{article.writerID}</td>
+                <td>{article.date}</td>
+                <td>{article.viewCount}</td>
+              </tr>
+            ))}
           </table>
 
           <div className="flex justify-center items-center mt-5">
