@@ -1,7 +1,10 @@
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import HomeIcon from "@mui/icons-material/Home";
+import { useLocation } from "react-router-dom";
+import { pathDivider, pathNamer } from "../util/util";
 
 const SemiHeader = () => {
+  const { pathname } = useLocation();
   return (
     <>
       <div className="px-[10px] flex items-center border-b-2 border-[#99ff77]">
@@ -12,14 +15,14 @@ const SemiHeader = () => {
         </div>
 
         <div className="flex justify-between items-center px-5 py-[10px] w-10/12">
-          <div className="text-2xl font-bold">공지사항</div>
+          <div className="text-2xl font-bold">{pathDivider(pathname)}</div>
 
           <div className="flex items-center">
             <HomeIcon
               style={{ color: "#b6b6b6", width: "20px", height: "20px" }}
             />
             <div className="ml-[10px] text-[#b6b6b6] text-lg">
-              / 게시판 / 공지사항
+              {pathNamer(pathname)}
             </div>
           </div>
         </div>

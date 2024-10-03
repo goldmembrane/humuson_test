@@ -53,3 +53,25 @@ export const menus = [
   { title: "PUSH 사용자", id: 10, icon: "people" },
   { title: "대시보드", id: 11, icon: "bookmark" },
 ];
+
+export const pathDivider = (path) => {
+  if (path.includes("notice")) {
+    return "공지사항";
+  } else if (path.includes("q&a")) {
+    return "Q&A";
+  } else if (path.includes("article")) {
+    return "게시판";
+  } else if (path.includes("send")) {
+    return "발송하기";
+  } else if (path.includes("message")) {
+    return "메시지";
+  }
+};
+
+export const pathNamer = (path) => {
+  const name = path.split("/");
+
+  return `/ ${pathDivider(name[1])} ${
+    name.length > 2 ? "/" + pathDivider(name[2]) : ""
+  }`;
+};
