@@ -11,12 +11,20 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import ExpandCircleDownOutlinedIcon from "@mui/icons-material/ExpandCircleDownOutlined";
 
 import { menus, selectIcon } from "../util/util";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Menu = () => {
+  const router = useNavigate();
+
+  const { pathname } = useLocation();
+
   return (
     <>
       <nav className="w-2/12 flex-col">
-        <div className="flex justify-between px-[10px] py-3 cursor-pointer border-b-2 border-[#e3e3e3]">
+        <div
+          className="flex justify-between px-[10px] py-3 cursor-pointer border-b-2 border-[#e3e3e3]"
+          onClick={() => router("/article")}
+        >
           <div className="flex items-center">
             <CalendarMonthIcon />
 
@@ -27,11 +35,27 @@ const Menu = () => {
             style={{ width: "30px", height: "30px", color: "#e3e3e3" }}
           />
         </div>
+        {pathname.includes("/article") && (
+          <>
+            <div
+              className="px-10 py-3 text-xl cursor-pointer"
+              onClick={() => router("/article/notice")}
+            >
+              공지사항
+            </div>
+            <div
+              className="px-10 py-3 text-xl cursor-pointer"
+              onClick={() => router("/article/q&a")}
+            >
+              Q&A
+            </div>
+          </>
+        )}
 
-        <div className="px-10 py-3 text-xl cursor-pointer">공지사항</div>
-        <div className="px-10 py-3 text-xl cursor-pointer">Q&A</div>
-
-        <div className="flex justify-between px-[10px] py-3 cursor-pointer border-b-2 border-[#e3e3e3]">
+        <div
+          className="flex justify-between px-[10px] py-3 cursor-pointer border-b-2 border-[#e3e3e3]"
+          onClick={() => router("/message")}
+        >
           <div className="flex items-center">
             <SendIcon />
 
@@ -42,8 +66,14 @@ const Menu = () => {
             style={{ width: "30px", height: "30px", color: "#e3e3e3" }}
           />
         </div>
-
-        <div className="px-10 py-3 text-xl cursor-pointer">발송하기</div>
+        {pathname.includes("/message") && (
+          <div
+            className="px-10 py-3 text-xl cursor-pointer"
+            onClick={() => router("/message/send")}
+          >
+            발송하기
+          </div>
+        )}
 
         <div className="flex justify-between px-[10px] py-3 cursor-pointer border-b-2 border-[#e3e3e3]">
           <div className="flex items-center">
