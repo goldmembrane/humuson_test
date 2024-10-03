@@ -40,15 +40,16 @@ const Pagination = ({ totalPage, limit, page, setPage }) => {
         <KeyboardArrowLeftIcon />
       </div>
       <div className="flex justify-center items-center mx-3">
-        {currentPage.map((i) => (
-          <div
-            className="text-lg font-bold cursor-pointer mx-2"
-            key={i + 1}
-            onClick={() => setPage(i + 1)}
-          >
-            {i + 1}
-          </div>
-        ))}
+        {currentPage &&
+          currentPage.map((i) => (
+            <div
+              className="text-lg font-bold cursor-pointer mx-2"
+              key={i + 1}
+              onClick={() => setPage(i + 1)}
+            >
+              {i + 1}
+            </div>
+          ))}
       </div>
       <div
         className="w-6 h-6 text-[#b7b7b7] cursor-pointer"

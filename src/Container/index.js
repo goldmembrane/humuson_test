@@ -20,8 +20,28 @@ const Container = () => {
     return currentPosts;
   };
 
-  const totalPage = Math.ceil(data.length / postsPerPage);
+  const [condition, setCondition] = useState("title");
 
+  const onSelect = (event) => {
+    setCondition(event.target.value);
+  };
+
+  const [searchInput, setSearchInput] = useState("");
+
+  const onChangeSearch = (e) => {
+    setSearchInput(e.target.value);
+  };
+
+  const search = (option, text) => {
+    const filteredResult = data.filter((v) => {
+      if (option === "title") return v.title.includes(text);
+      else if (option === "writer") return v.writerID.includes(text);
+    });
+
+    setData(filteredResult);
+  };
+
+  const totalPage = Math.ceil(data.length / postsPerPage);
   return (
     <>
       <div className="bg-[#e3e3e3] w-10/12 h-auto p-5">
@@ -36,10 +56,9 @@ const Container = () => {
             <div className="flex items-center ml-5">
               <div className="text-lg font-semibold">검색 조건</div>
 
-              <select className="ml-[10px]">
+              <select className="ml-[10px]" onChange={onSelect}>
                 <option value="title">제목</option>
-                <option value="title">작성자(ID)</option>
-                <option value="title">작성일</option>
+                <option value="writer">작성자(ID)</option>
               </select>
             </div>
 
@@ -47,9 +66,14 @@ const Container = () => {
               <input
                 className="w-[300px] p-[3px]"
                 placeholder="검색어를 입력해주세요"
+                onChange={onChangeSearch}
+                value={searchInput}
               />
 
-              <div className="ml-[6px] flex justify-center items-center bg-[#a5a5a5] cursor-pointer">
+              <div
+                className="ml-[6px] flex justify-center items-center bg-[#a5a5a5] cursor-pointer"
+                onClick={() => search(condition, searchInput)}
+              >
                 <SearchIcon
                   style={{ width: "32px", height: "32px", color: "white" }}
                 />
@@ -76,25 +100,29 @@ const Container = () => {
           </div>
 
           <table className="mt-[10px] w-full">
-            <tr className="bg-[#e5e5e5]">
-              <th>ID</th>
-              <th>제목</th>
-              <th>작성자(ID)</th>
-              <th>작성일</th>
-              <th>조회수</th>
-            </tr>
-            {currentPosts(data).map((article) => (
-              <tr
-                className="text-center bg-[#f5f5f5] border-b-2 border-[#d4d4d4]"
-                key={article.id}
-              >
-                <td>{article.id}</td>
-                <td className="text-left">{article.title}</td>
-                <td>{article.writerID}</td>
-                <td>{article.date}</td>
-                <td>{article.viewCount}</td>
+            <thead>
+              <tr className="bg-[#e5e5e5]">
+                <th>ID</th>
+                <th>제목</th>
+                <th>작성자(ID)</th>
+                <th>작성일</th>
+                <th>조회수</th>
               </tr>
-            ))}
+            </thead>
+            <tbody>
+              {currentPosts(data).map((article) => (
+                <tr
+                  className="text-center bg-[#f5f5f5] border-b-2 border-[#d4d4d4]"
+                  key={article.id}
+                >
+                  <td>{article.id}</td>
+                  <td className="text-left">{article.title}</td>
+                  <td>{article.writerID}</td>
+                  <td>{article.date}</td>
+                  <td>{article.viewCount}</td>
+                </tr>
+              ))}
+            </tbody>
           </table>
 
           <Pagination
