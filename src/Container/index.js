@@ -8,6 +8,7 @@ import Pagination from "../util/pagination";
 
 const Container = () => {
   const [data, setData] = useState(jsonData);
+  const [filteredData, setFilteredData] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(5);
@@ -18,6 +19,12 @@ const Container = () => {
     let currentPosts = 0;
     currentPosts = posts.slice(indexOfFirst, indexOfLast);
     return currentPosts;
+  };
+
+  const [registerDate, setRegisterDate] = useState("");
+
+  const selectDate = (event) => {
+    setRegisterDate(event.target.value);
   };
 
   const [condition, setCondition] = useState("title");
@@ -32,16 +39,32 @@ const Container = () => {
     setSearchInput(e.target.value);
   };
 
-  const search = (option, text) => {
+  const search = (option, text, date) => {
     const filteredResult = data.filter((v) => {
-      if (option === "title") return v.title.includes(text);
-      else if (option === "writer") return v.writerID.includes(text);
+      if (date !== "") {
+        if (option === "title")
+          return v.title.includes(text) && v.date.includes(date);
+        else if (option === "writer")
+          return v.writerID.includes(text) && v.date.includes(date);
+      } else if (date === "") {
+        if (option === "title") return v.title.includes(text);
+        else if (option === "writer") return v.writerID.includes(text);
+      }
     });
 
-    setData(filteredResult);
+    setFilteredData(filteredResult);
   };
 
-  const totalPage = Math.ceil(data.length / postsPerPage);
+  const resetSearchCondition = () => {
+    setSearchInput("");
+    setCondition("title");
+    setRegisterDate("");
+  };
+
+  const totalPage =
+    filteredData && filteredData.length !== 0
+      ? Math.ceil(filteredData.length / postsPerPage)
+      : Math.ceil(data.length / postsPerPage);
   return (
     <>
       <div className="bg-[#e3e3e3] w-10/12 h-auto p-5">
@@ -50,7 +73,12 @@ const Container = () => {
             <div className="flex items-center">
               <div className="text-lg font-semibold">등록일 기준</div>
 
-              <input type="date" className="ml-[10px]" value="" />
+              <input
+                type="date"
+                className="ml-[10px]"
+                value={registerDate}
+                onChange={selectDate}
+              />
             </div>
 
             <div className="flex items-center ml-5">
@@ -72,7 +100,10 @@ const Container = () => {
 
               <div
                 className="ml-[6px] flex justify-center items-center bg-[#a5a5a5] cursor-pointer"
-                onClick={() => search(condition, searchInput)}
+                onClick={() => {
+                  search(condition, searchInput, registerDate);
+                  resetSearchCondition();
+                }}
               >
                 <SearchIcon
                   style={{ width: "32px", height: "32px", color: "white" }}
@@ -86,7 +117,9 @@ const Container = () => {
               <div className="text-lg">전체 글</div>
 
               <div className="ml-[10px] rounded-full bg-[#a2a2a2] flex justify-center items-center text-white text-lg font-bold px-2 py-1">
-                {data.length}
+                {filteredData && filteredData.length !== 0
+                  ? filteredData.length
+                  : data.length}
               </div>
             </div>
 
@@ -110,18 +143,31 @@ const Container = () => {
               </tr>
             </thead>
             <tbody>
-              {currentPosts(data).map((article) => (
-                <tr
-                  className="text-center bg-[#f5f5f5] border-b-2 border-[#d4d4d4]"
-                  key={article.id}
-                >
-                  <td>{article.id}</td>
-                  <td className="text-left">{article.title}</td>
-                  <td>{article.writerID}</td>
-                  <td>{article.date}</td>
-                  <td>{article.viewCount}</td>
-                </tr>
-              ))}
+              {filteredData && filteredData.length !== 0
+                ? currentPosts(filteredData).map((article) => (
+                    <tr
+                      className="text-center bg-[#f5f5f5] border-b-2 border-[#d4d4d4]"
+                      key={article.id}
+                    >
+                      <td>{article.id}</td>
+                      <td className="text-left">{article.title}</td>
+                      <td>{article.writerID}</td>
+                      <td>{article.date}</td>
+                      <td>{article.viewCount}</td>
+                    </tr>
+                  ))
+                : currentPosts(data).map((article) => (
+                    <tr
+                      className="text-center bg-[#f5f5f5] border-b-2 border-[#d4d4d4]"
+                      key={article.id}
+                    >
+                      <td>{article.id}</td>
+                      <td className="text-left">{article.title}</td>
+                      <td>{article.writerID}</td>
+                      <td>{article.date}</td>
+                      <td>{article.viewCount}</td>
+                    </tr>
+                  ))}
             </tbody>
           </table>
 
