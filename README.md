@@ -1,70 +1,84 @@
-# Getting Started with Create React App
+# 휴머스온 Front Engineer 과제
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+휴머스온 프론트엔드 사전 과제입니다.
 
-## Available Scripts
+## 개발 환경
 
-In the project directory, you can run:
+- React v18.3.1
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 설치 및 실행
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 의존성 패키지 설치
 
-### `npm test`
+npm
+```
+npm install  
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+yarn
+```
+yarn
+```
 
-### `npm run build`
+### 프로덕션 환경 실행
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+npm
+```
+npm run start
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+yarn
+```
+yarn start
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+과제 화면은 http://localhost:3000/article/notice로 접속
 
-### `npm run eject`
+## 기술 stack
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- React v18.3.1: 컴포넌트 기반 개발과 넓은 커뮤니티를 가짐으로써 적극적인 활용 가능성을 생각하여 React를 선택하였습니다.
+- tailwind css: React내의 jsx 파일과 css 파일을 구분짓지 않고 통합하여 빠르게 개발할 수 있고, 커스텀이 용이한 tailwind css를 선택하였습니다.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 디렉토리 구조
+```
+📦src
+ ┣ 📂api
+ ┃ ┗ 📜jsonData.json
+ ┣ 📂Container
+ ┃ ┣ 📜empty.js
+ ┃ ┗ 📜index.js
+ ┣ 📂Header
+ ┃ ┗ 📜index.js
+ ┣ 📂Menu
+ ┃ ┗ 📜index.js
+ ┣ 📂SemiHeader
+ ┃ ┗ 📜index.js
+ ┣ 📂util
+ ┃ ┣ 📂pagination
+ ┃ ┃ ┣ 📜index.js
+ ┃ ┃ ┗ 📜util.js
+ ┃ ┗ 📜util.js
+ ┣ 📜App.js
+ ┣ 📜index.js
+ ┣ 📜input.css
+ ┗ 📜output.css
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 요구사항 체크 리스트
+- [x] 레이아웃 배치
+  ![1](https://github.com/user-attachments/assets/9aa04b29-8c8b-44da-bbf4-405c75f87bff)
+- [x] 좌측상단 메뉴 클릭 시 사이드가 접힘 / 펼침
+- [x] 사이드 메뉴 클릭 시 공지사항 화면외 다른 사이드메뉴는 제목만 나오도록 구현
+![1](https://github.com/user-attachments/assets/8beabdf5-ddd8-4a02-a79c-a7fdc06de462)
+- [x] 페이징은 한 화면에 5행씩 출력
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+  ![4](https://github.com/user-attachments/assets/3a88c40c-a9b2-4df9-9b59-951b4be99896)
+- [x] 검색조건 + 검색어에 따라 테이블데이터가 필터링돼서 화면에 출력
+  ![2](https://github.com/user-attachments/assets/85d6f4a9-f175-4544-bbf9-a050f68fee85)
+  ![3](https://github.com/user-attachments/assets/b84d8063-3de2-4662-b3a6-c7800651d6c3)
+- [x] 테이블의 컬럼은 ID, 제목, 작성자, 작성일
+- [x] 행의 개수에 따라 전체 글 부분에 갯수 변경
+- [x] 등록일 기준은 화면과 같이 날짜 영역 선택 가능
+  ![2](https://github.com/user-attachments/assets/d6927518-db60-4bcb-be29-9755d4df1fda)
+  ![3](https://github.com/user-attachments/assets/4cb29910-096c-4b5a-a2ee-4158c2569994)
