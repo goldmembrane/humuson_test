@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import SendIcon from "@mui/icons-material/Send";
 import PeopleIcon from "@mui/icons-material/People";
@@ -10,7 +8,6 @@ import EqualizerIcon from "@mui/icons-material/Equalizer";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import ExpandCircleDownOutlinedIcon from "@mui/icons-material/ExpandCircleDownOutlined";
 
-import { menus, selectIcon } from "../util/util";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const Menu = () => {
